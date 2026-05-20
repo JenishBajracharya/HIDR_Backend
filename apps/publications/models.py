@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 from django.db import models
 
-class Publicationk(models.Model):
+class Publication(models.Model):
 
     PUBLICATION_TYPES = [
         ('report', 'Report'),

@@ -1,10 +1,10 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import PageViewSet
+from .views import PublicationViewSet
 
 
 router = DefaultRouter()
-router.register(r'', PageViewSet, basename='pages')
+router.register(r'', PublicationViewSet, basename='publications')
 
 
 urlpatterns = [
