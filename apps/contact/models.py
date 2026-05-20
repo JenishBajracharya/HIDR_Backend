@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.db import models
 
 
@@ -22,3 +23,5 @@ class ContactSubmission(models.Model):
         return self.full_name
     
     
+=======
+>>>>>>> babita-backend
