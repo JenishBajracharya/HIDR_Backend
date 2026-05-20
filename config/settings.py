@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "apps.projects",
     "apps.gallery",
     "apps.publications",
+    "apps.contact",
     'drf_spectacular',
  
     
