@@ -1,18 +1,13 @@
-from django.shortcuts import render
-
-# Create your views here.
 from rest_framework.viewsets import ReadOnlyModelViewSet
-from django.contrib.auth.models import User
-from .serializers import UserSerializer
-from rest_framework.viewsets import ReadOnlyModelViewSet
-from django.contrib.auth.models import User
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import UserProfile
-from .serializers import UserSerializer, RegisterSerializer
+from django.contrib.auth.models import User
 
+from .serializers import UserSerializer, RegisterSerializer
+from drf_spectacular.utils import extend_schema
+from .serializers import RegisterSerializer
 
 class UserViewSet(ReadOnlyModelViewSet):
 
@@ -20,13 +15,39 @@ class UserViewSet(ReadOnlyModelViewSet):
     serializer_class = UserSerializer
 
 
+# class RegisterView(APIView):
+
+#     def post(self, request):
+#         serializer = RegisterSerializer(data=request.data)
+
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({"message": "User created successfully"}, status=201)
+
+#         return Response(serializer.errors, status=400)
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from drf_spectacular.utils import extend_schema
+
+from .serializers import RegisterSerializer
+
+
 class RegisterView(APIView):
 
+    @extend_schema(
+        request=RegisterSerializer,
+        responses={201: RegisterSerializer}
+    )
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
-            return Response({"message": "User created successfully"}, status=201)
+            return Response(
+                {"message": "User created successfully"},
+                status=status.HTTP_201_CREATED
+            )
 
-        return Response(serializer.errors, status=400)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
